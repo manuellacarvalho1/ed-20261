@@ -1,29 +1,24 @@
 #include <stdio.h>
-int main() {
 
-    float peso, altura;
-    printf("Digite o peso (em kg): ");
-    scanf("%d", &peso);
-    printf("Digite a sua altura (em m): ");
-    scanf("%d", &altura);
 
-    float imc = peso / (altura * altura);
+float calcular_imc(float altura, float peso) {
+        if(altura <= 0) return 0;
+        return peso / (altura * altura);
+    }
 
-    float abaixo = imc < 18.5;
-    float normal = imc >= 18.5 && imc <= 24.9;
-    float sobrepeso = imc >= 25.0 && imc <= 29.9;
+    int main() {
+        float imc;
+        
+        imc = calcular_imc(1.75f, 0.0f);
+        printf("altura = 1.75, peso = 0, imc = %.1f => %i\n", imc, imc == 0);
+
+        imc = calcular_imc(1.75f, 50.0f);
+        printf("altura = 1.75, peso = 50, imc = %.1f => %i\n", imc, imc < 18.5f);
+
+        imc = calcular_imc(1.75f, 65.0f);
+        printf("altura = 1.75, peso = 65, imc = %.1f => %i\n", imc, imc >= 18.5f && imc < 24.9f);
+
+        return 0;
+        
+        }
     
-    if (peso < 0) {
-        printf("Não é permitido valores negativos.\n");
-    }
-
-    else if (abaixo) {
-        printf("Você está abaixo do peso.\n");
-    } else if (normal) {
-        printf("Você está no peso normal.\n");
-    } else if (sobrepeso) {
-        printf("Você está acima do peso.\n");   
-    } else {
-        printf("Você está em nível de obesidade.\n");
-    }
-}

@@ -1,62 +1,36 @@
 #include <stdio.h>
 
+  int calcular_notas(int *saque, int valor_nota) {
+    int qtd = *saque / valor_nota;
+    *saque = *saque % valor_nota;
+    return qtd;
+}
+
 int main() {
+    int valor_teste, qtd;
 
-    int saque, notas;
-    printf("Valor a ser sacado: ");
-    scanf("%d", &saque);
-
-    if(saque < 20 || saque > 1000) {
-        printf("Entrada inválida. Insira um valor entre 20 e 1000 reais.");
-    } 
-
-    notas = saque / 200;
-    saque = saque % 200;
-
-    if(notas > 0) {
-        printf("Qntd. notas de 200: %d\n", notas);
-    }
-
-    notas = saque / 100;
-    saque = saque % 100;
-
-    if(notas > 0) {
-        printf("Qntd. notas de 100: %d\n", notas);
-    }
-
-    notas = saque / 50;
-    saque = saque % 50;
-
-    if(notas > 0) {
-        printf("Qntd. notas de 50: %d\n", notas);
-    }
+    valor_teste = 647;
     
-    notas = saque / 20;
-    saque = saque % 20;
+    qtd = calcular_notas(&valor_teste, 200); 
+    printf("Saque: 647\n notas de 200: %d => %i\n", qtd, qtd == 3);
+    
+    qtd = calcular_notas(&valor_teste, 100); 
+    printf("notas de 100: %d => %i\n", qtd, qtd == 0);
+    
+    qtd = calcular_notas(&valor_teste, 50);  
+    printf("notas de 50: %d => %i\n", qtd, qtd == 0);
 
-    if(notas > 0) {
-        printf("Qntd. notas de 20: %d\n", notas);
-    }
+    qtd = calcular_notas(&valor_teste, 20);  
+    printf("notas de 20: %d => %i\n", qtd, qtd == 2);
 
-    notas = saque / 10;
-    saque = saque % 10;
+    qtd = calcular_notas(&valor_teste, 10);
+    printf("Notas de 10:  %d => %i\n", qtd, qtd == 0); 
 
-    if(notas > 0) {
-        printf("Qntd. notas de 10: %d\n", notas);
-    }
+    qtd = calcular_notas(&valor_teste, 5);
+    printf("Notas de 5:   %d => %i\n", qtd, qtd == 1); 
 
-    notas = saque / 5;
-    saque = saque % 5;
-
-    if(notas > 0) {
-        printf("Qntd. notas de 5: %d\n", notas);
-    }
-
-    notas = saque / 2;
-    saque = saque % 2;
-
-    if(notas > 0) {
-        printf("Qntd. notas de 2: %d\n", notas);
-    }
-
+    qtd = calcular_notas(&valor_teste, 2);
+    printf("Notas de 2:   %d => %i\n", qtd, qtd == 1);
+    
+    return 0;
 }
