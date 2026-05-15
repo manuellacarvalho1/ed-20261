@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lista_encadeada.h"
 
 ListaEncadeada *criar() 
@@ -51,6 +53,7 @@ No *buscar(ListaEncadeada *lista, int valor)
 {
     if(lista_vazia(lista))
         return NULL;
+    int posicao = 1;
 
     No *no = lista->primeiro;
     while(no != NULL)
@@ -58,7 +61,6 @@ No *buscar(ListaEncadeada *lista, int valor)
         if (no->dado == valor)
             return no;
         no = no->proximo;
-        posicao++;
     }
 
     return NULL;
@@ -66,6 +68,62 @@ No *buscar(ListaEncadeada *lista, int valor)
 
 void remover(ListaEncadeada *lista, int valor) 
 {
+    if (lista_vazia(lista))
+    return;
+
+    //remove o primeiro
+    No *no = lista->primeiro;
+    if (no->dado == valor) {
+        lista->primeiro = no->proximo;
+        lista->quantidade--;
+        free(no);
+        return;
+    }
+
+    //remove o do meio
+    No *anterior = no;
+    while (no->proximo != NULL) {
+        anterior = no;
+        no = no->proximo;
+        if (no->dado == valor) {
+            anterior->proximo = no->proximo;
+            lista->quantidade--;
+            break;
+        }
+    }
+
+    //remove o ultimo
+    if(no->proximo == NULL) {
+        lista->ultimo = anterior;
+    }
+
+    free(no);
 
 }
+
+//     // OUTRA FORMA DE FAZER O VOID REMOVER------------------------------------------------------------
+//     No *anterior = lista->primeiro;
+//     No *posterior = anterior->proximo;
+
+//     if(anterior->dado == valor) {
+//         lista->primeiro = anterior->proximo;
+//         free(anterior);
+       
+//     } else {
+//         while (posterior != NULL) {
+//             if (posterior->dado == valor){
+//                 anterior->proximo = posterior->proximo;
+//                 break;
+//             }
+//             anterior = posterior;
+//             posterior = posterior->proximo;
+//         }
+
+//         if (posterior->proximo == NULL) {
+//             lista->ultimo = anterior;
+//         }
+//         free(posterior);
+//     }
+
+// }
 
